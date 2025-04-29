@@ -35,6 +35,13 @@ exports.config = {
         ignoreUndefinedDefinitions: false,
     //    tags: '@Negative2', // Run tests with these tags
     },
+
+    afterScenario: async () => {
+        // Clear cookies and refresh the browser after each scenario
+        await browser.deleteAllCookies();
+        await browser.refresh();
+    },
+
     onComplete: function () {
         exec('npx allure generate ./allure-results --clean', (error, stdout, stderr) => {
             if (error) {
